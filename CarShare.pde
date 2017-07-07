@@ -5,7 +5,7 @@ User[] users;
 int amountOfUsers;
 State curState;
 User currentlyLoggedIn;
-LogButton[] logs = {};
+LogButton[] logButtons = {};
 
 void setup() {
   size(800, 480); // 5 inch  
@@ -18,7 +18,7 @@ void setup() {
   
   for(int i = 0; i < amountOfUsers; i++){
     LogButton tempLog = new LogButton(users[i],0,(height/amountOfUsers)*(i+1),width,(height/amountOfUsers)-height/amountOfUsers,i);
-    logs = (LogButton[])append(logs,tempLog);
+    logButtons = (LogButton[])append(logButtons,tempLog);
   }
 }
 
@@ -28,24 +28,13 @@ void draw() {
   fill(0);
   
   if(curState == State.LOGIN){
-    for(LogButton log:logs){
+    for(LogButton log:logButtons){
       log.makeRect();
       log.makeText();
+      log.checkMousePress();
     }
   }
   
-}
-
-void mousePressed(){
-  println(mouseY);
-  println(logs[0].h);
-  println(logs[0].x);
-  println(logs[0].y);
-  println(logs[0].w);
-  println(logs[0].h);
-  if(mouseY > 0 && mouseY < logs[0].y){
-    println(logs[0].user.name);
-  }
 }
 
 void changeState(State state){
