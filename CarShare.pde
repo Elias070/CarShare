@@ -17,7 +17,7 @@ void setup() {
   amountOfUsers = users.length;
   
   for(int i = 0; i < amountOfUsers; i++){
-    LogButton tempLog = new LogButton(users[i],0,(height/amountOfUsers)*(i+1),width,(height/amountOfUsers)-height/amountOfUsers,i);
+    LogButton tempLog = new LogButton(users[i],i);
     logButtons = (LogButton[])append(logButtons,tempLog);
   }
 }

@@ -1,34 +1,41 @@
 class LogButton {
   User user;
-  float x,y,w,h;
+  float recX,recY,recW,recH,textX,textY;
   int i;
   
-  LogButton(User user,float x, float y, float w, float h, int i){
+  LogButton(User user, int i){
     this.user = user;
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
     this.i = i;
+    
+    // create
+    if(i == 0){
+      this.recY = 0;
+    } else {
+      this.recY = (height/amountOfUsers)*i;
+    }
+     this.recX = 0;
+     this.recW = width;
+     this.recH = (height/amountOfUsers);
+     
+     this.textX = width/2;
+     this.textY = (height/amountOfUsers)*i-height/amountOfUsers/2;
   }
  
  void makeRect(){
-   background(204,100,0);
-   rect(x,y,w,h); 
+   strokeWeight(5);
+   fill(255);
+   rect(recX,recY,recW,recH); 
  }
  
  void makeText(){
-  text(user.name, width/2, (height/amountOfUsers)*(i+1)-height/amountOfUsers/2);
+  text(user.name, textX, textY);
  }
  
  void checkMousePress(){
    if(mousePressed){
-     println("Mouse is pressed");
-     println("MouseY -> " + mouseY);
-     println("this.y -> " + this.y);
-     println("this.y+this.h -> " + (this.y+this.h));
-     if(mouseY > this.y && mouseY < (this.y+this.h)){
+     if(mouseY > this.recY && mouseY < (this.recY+this.recH)){
        println("clicked ->"+this.user.name);
+       changeState(State.MENU);
      }
    }
   }
