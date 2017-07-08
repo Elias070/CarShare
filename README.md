@@ -16,3 +16,5 @@ Personal project in Processing to make a carsharing system with the raspberrypi
 
 ### More
 - Local database in PostgreSQL opmaken
+	- Ritten {id, userid, startKm, endKm, startDate, endDate}
+	- Users (id, name)

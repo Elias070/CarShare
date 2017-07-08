@@ -3,12 +3,17 @@
 
 User[] users;
 int amountOfUsers;
-State curState;
+State curState, prevState = null;
 User currentlyLoggedIn;
 LogButton[] logButtons = {};
 
+int startDate, endDate, startKm, endKm; // nog bepalen wat er mee gedaan moet worden
+
 void setup() {
-  size(800, 480); // 5 inch  
+  size(800, 480); // 5 inch
+  background(255);
+  text("Elias-Dev",width/2,height/2); // On startup wanneer dingen geladen worden
+  
   changeState(State.LOGIN);
   User elias = new User("Elias");
   User yasmina = new User("Yasmina");
@@ -37,15 +42,16 @@ void draw() {
     text("Welkom " + currentlyLoggedIn.name,width/2,25);
     
     // Buttons
-    fill(255);
-    strokeWeight(5);
-    rect(0,100,width,50);
-    fill(0);
-    text("Start",width/2,125);
+    Button startButton = new Button(100,100,100,100,"Start","start");
+    startButton.checkMousepress();
   }
   
 }
 
-void changeState(State state){
-  curState = state;
+void changeState(State newState){
+  curState = newState;
+  if(prevState == null)
+    prevState = newState;
+  else
+    prevState = curState;
 }
