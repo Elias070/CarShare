@@ -17,23 +17,26 @@ class LogButton {
      this.recW = width;
      this.recH = (height/amountOfUsers);
      
+     // Text X en Y moet relatief aan rectangle zijn
      this.textX = width/2;
-     this.textY = (height/amountOfUsers)*i-height/amountOfUsers/2;
+     this.textY = (height/amountOfUsers)*(i+1)-height/amountOfUsers/2;
   }
  
  void makeRect(){
-   strokeWeight(5);
    fill(255);
+   strokeWeight(5);
    rect(recX,recY,recW,recH); 
  }
  
  void makeText(){
+  fill(0);
   text(user.name, textX, textY);
  }
  
- void checkMousePress(){
+ void checkMousepress(){
    if(mousePressed){
      if(mouseY > this.recY && mouseY < (this.recY+this.recH)){
+       currentlyLoggedIn = this.user;
        println("clicked ->"+this.user.name);
        changeState(State.MENU);
      }

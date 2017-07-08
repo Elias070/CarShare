@@ -31,8 +31,17 @@ void draw() {
     for(LogButton log:logButtons){
       log.makeRect();
       log.makeText();
-      log.checkMousePress();
+      log.checkMousepress();
     }
+  } else if (curState == State.MENU){
+    text("Welkom " + currentlyLoggedIn.name,width/2,25);
+    
+    // Buttons
+    fill(255);
+    strokeWeight(5);
+    rect(0,100,width,50);
+    fill(0);
+    text("Start",width/2,125);
   }
   
 }
