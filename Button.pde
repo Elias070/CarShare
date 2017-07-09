@@ -1,7 +1,15 @@
 class Button {
   float x,y,w,h,tx,ty;
   String text, action;
-  
+    
+  // voor Logbutton
+  Button(float x, float y, float w, float h){
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+  }
+
   Button(float x, float y, float w, float h, String text, String action){
     this.x = x;
     this.y = y;
@@ -9,8 +17,8 @@ class Button {
     this.h = h;
     this.text = text;
     this.action = action;
-    this.ty = this.y+(this.y+this.h)/4;
-    this.tx = this.x+(this.x+this.w)/4;
+    this.ty = this.y+(this.h/2);
+    this.tx = this.x+(this.w/2);
     makeRect();
     makeText();
   }
@@ -25,16 +33,14 @@ class Button {
   fill(0);
   text(text, tx, ty);
  }
- 
-  
+
   void checkMousepress(){
-   if(mousePressed){
-     if(mouseY > this.y && mouseY < (this.y+this.h) && mouseX > this.x && mouseX < (this.x+this.w)){
-      if(this.action == "start"){
-        println("Clicked on start button");
+    if(mousePressed){
+      if(mouseY > this.y && mouseY < (this.y+this.h) && mouseX > this.x && mouseX < (this.x+this.w)){
+        if(this.action == "start"){
+          println("Clicked on start button");
+        }
       }
-     }
-   }
+    }
   }
-  
 }

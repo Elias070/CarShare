@@ -1,28 +1,32 @@
 // Made by: Elias Abdelali
 // Website: http://www.elias-dev.com
 
-User[] users;
-int amountOfUsers;
-State curState, prevState = null;
+User elias = new User("Elias");
+User yasmina = new User("Yasmina");
+User souliman = new User("Souliman");
+User[] users = {elias,yasmina,souliman};
 User currentlyLoggedIn;
-LogButton[] logButtons = {};
+int amountOfUsers = users.length;
 
+LogButton[] logButtons = {};
+State curState, prevState = null;
+int headerHeight = 50;
+int workHeight;
+String headerText;
 int startDate, endDate, startKm, endKm; // nog bepalen wat er mee gedaan moet worden
 
 void setup() {
   size(800, 480); // 5 inch
-  background(255);
-  text("Elias-Dev",width/2,height/2); // On startup wanneer dingen geladen worden
+  background(255); // white background
   
+  workHeight = height-headerHeight; // te gebruiken met translate(0,headerHeight)
+  
+  // set initial state to login
   changeState(State.LOGIN);
-  User elias = new User("Elias");
-  User yasmina = new User("Yasmina");
-  User souliman = new User("Souliman");
-  User[] users = {elias,yasmina,souliman};
-  amountOfUsers = users.length;
-  
+  translate(0,headerHeight);
+  // logbuttons aanmaken en stoppen in array
   for(int i = 0; i < amountOfUsers; i++){
-    LogButton tempLog = new LogButton(users[i],i);
+    LogButton tempLog = new LogButton(100,(workHeight/amountOfUsers)*i,width-200,100,users[i],i);
     logButtons = (LogButton[])append(logButtons,tempLog);
   }
 }
@@ -32,6 +36,11 @@ void draw() {
   textAlign(CENTER);
   fill(0);
   
+  // Make header
+  translate(0,0);
+  initHeader();
+  translate(0,headerHeight);
+  
   if(curState == State.LOGIN){
     for(LogButton log:logButtons){
       log.makeRect();
@@ -39,10 +48,10 @@ void draw() {
       log.checkMousepress();
     }
   } else if (curState == State.MENU){
-    text("Welkom " + currentlyLoggedIn.name,width/2,25);
+    
     
     // Buttons
-    Button startButton = new Button(100,100,100,100,"Start","start");
+    Button startButton = new Button(100,100,600,200,"Start","start");
     startButton.checkMousepress();
   }
   
@@ -54,4 +63,13 @@ void changeState(State newState){
     prevState = newState;
   else
     prevState = curState;
+}
+
+void initHeader(){
+  rect(0,0,width,headerHeight);
+  text(headerText,width/2,25);
+}
+
+void setHeaderText(String newHeaderText){
+  headerText = newHeaderText;
 }

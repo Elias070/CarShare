@@ -1,45 +1,34 @@
-class LogButton {
-  User user;
-  float recX,recY,recW,recH,textX,textY;
-  int i;
+class LogButton extends Button{
   
-  LogButton(User user, int i){
-    this.user = user;
+  User user;
+  String text;
+  int i;
+   
+  LogButton(float x, float y, float w, float h, User user, int i){
+    super(x,y,w,h);
     this.i = i;
-    
-    // create
-    if(i == 0){
-      this.recY = 0;
-    } else {
-      this.recY = (height/amountOfUsers)*i;
-    }
-     this.recX = 0;
-     this.recW = width;
-     this.recH = (height/amountOfUsers);
-     
-     // Text X en Y moet relatief aan rectangle zijn
-     this.textX = width/2;
-     this.textY = (height/amountOfUsers)*(i+1)-height/amountOfUsers/2;
+    if(i == 0) this.y = 0;
+    this.user = user;
+    this.text = this.user.name;
+    this.ty = this.y+(this.h/2);
+    this.tx = this.x+(this.w/2);
+  }
+  
+  @Override
+  void makeText(){
+    fill(0);
+    text(text, tx, ty);
   }
  
- void makeRect(){
-   fill(255);
-   strokeWeight(5);
-   rect(recX,recY,recW,recH); 
- }
- 
- void makeText(){
-  fill(0);
-  text(user.name, textX, textY);
- }
- 
- void checkMousepress(){
-   if(mousePressed){
-     if(mouseY > this.recY && mouseY < (this.recY+this.recH)){
-       currentlyLoggedIn = this.user;
-       println("clicked ->"+this.user.name);
-       changeState(State.MENU);
-     }
-   }
+  @Override 
+  void checkMousepress(){
+    if(mousePressed){
+      println(this.x + "  x  " +this.y );
+      if(mouseY > this.y && mouseY < (this.y+this.h) && mouseX > this.x && mouseX < (this.x+this.w)){
+        currentlyLoggedIn = this.user;
+        println("clicked ->"+this.user.name);
+        changeState(State.MENU);
+      }
+    }
   }
 }
