@@ -1,6 +1,11 @@
 # CarShare
 Personal project in Processing to make a carsharing system with the raspberrypi
 
+## Current problems
+- checkingMousePress is off
+- Managing the header
+	- Make a pre designed system solution?
+
 ## To do
 
 ### RaspberryPi

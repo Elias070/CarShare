@@ -12,19 +12,19 @@ LogButton[] logButtons = {};
 State curState, prevState = null;
 int headerHeight = 50;
 int workHeight;
-String headerText;
+String headerText = "";
 int startDate, endDate, startKm, endKm; // nog bepalen wat er mee gedaan moet worden
 
 void setup() {
   size(800, 480); // 5 inch
   background(255); // white background
-  
-  workHeight = height-headerHeight; // te gebruiken met translate(0,headerHeight)
-  
+
   // set initial state to login
   changeState(State.LOGIN);
-  translate(0,headerHeight);
+  
   // logbuttons aanmaken en stoppen in array
+  workHeight = height-headerHeight; // te gebruiken met translate(0,headerHeight)
+  translate(0,headerHeight);
   for(int i = 0; i < amountOfUsers; i++){
     LogButton tempLog = new LogButton(100,(workHeight/amountOfUsers)*i,width-200,100,users[i],i);
     logButtons = (LogButton[])append(logButtons,tempLog);
