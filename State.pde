@@ -1,5 +1,8 @@
 enum State{
   LOGIN,
   MENU,
-  FIRST_TIME
+  FIRST_TIME,
+  LOG,
+  START,
+  ERROR
 }

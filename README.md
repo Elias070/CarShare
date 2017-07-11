@@ -2,12 +2,10 @@
 Personal project in Processing to make a carsharing system with the raspberrypi
 
 ## Current problems
-- checkingMousePress is off
 - Managing the header
 	- Make a pre designed system solution?
 
 ## To do
-
 ### RaspberryPi
 - Zodra RPi start, gelijk applicatie openen
 
@@ -23,3 +21,4 @@ Personal project in Processing to make a carsharing system with the raspberrypi
 - Local database in PostgreSQL opmaken
 	- Ritten {id, userid, startKm, endKm, startDate, endDate}
 	- Users (id, name)
+- Setting headertext automatically by using current state

@@ -3,12 +3,7 @@ class Button {
   String text, action;
     
   // voor Logbutton
-  Button(float x, float y, float w, float h){
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
-  }
+  Button(){}
 
   Button(float x, float y, float w, float h, String text, String action){
     this.x = x;
@@ -34,13 +29,13 @@ class Button {
   text(text, tx, ty);
  }
 
+
   void checkMousepress(){
-    if(mousePressed){
-      if(mouseY > this.y && mouseY < (this.y+this.h) && mouseX > this.x && mouseX < (this.x+this.w)){
-        if(this.action == "start"){
-          println("Clicked on start button");
-        }
+    if(mouseY > this.y && mouseY < (this.y+this.h) && mouseX > this.x && mouseX < (this.x+this.w)){
+      if(this.action == "start"){
+        changeState(State.START);
       }
     }
   }
+
 }
