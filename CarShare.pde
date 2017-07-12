@@ -1,8 +1,6 @@
 // Made by: Elias Abdelali
 // Website: http://www.elias-dev.com
 
-import java.util.Map; // Hashmapping
-
 String[][] errorReport;
 State curState, prevState = null;
 
@@ -13,7 +11,7 @@ User[] users = {elias,yasmina,souliman};
 User currentlyLoggedIn;
 int amountOfUsers = users.length;
 
-HashMap<Button,State> buttonHashmap = new HashMap<Button,State>();
+ArrayList<ButtonPair> buttonPairs = new ArrayList<ButtonPair>();
 LogButton[] logButtons = {};
 
 String headerText = "";
@@ -41,35 +39,37 @@ void setup() {
   }
 }
 
+//@SuppressWarnings("unused") // voor de buttons
 void draw() {
   background(251);
   textAlign(CENTER);
   fill(0);
   
   // Make header
-  translate(0,0);
   initHeader();
-  //translate(0,headerHeight);
-  
+  // Standaard header is naam van currrent state
+  setHeaderText(curState.toString()); 
+ 
   if(curState == State.LOGIN){
-    setHeaderText("Login");
     for(LogButton log:logButtons){
       log.makeRect();
       log.makeText();
-      //log.checkMousepress();
     }
     
   } else if (curState == State.MENU){
-    setHeaderText("Menu");
     // Buttons
-    Button startButton = new Button(100,100,600,200,"Start","start");
-    addClickListener(startButton);
+    Button startButton = new Button(100,100,600,100,"Start","start");
+    Button logButton = new Button(100,230,600,100,"Log","log");
     
   } else if (curState == State.START){
-    setHeaderText("Start");
     if(startKm > 0){
+      textAlign(LEFT);
       text("Is dit de kilometerstand?",100,100);
       text(startKm,100,150);
+      
+      Button jaKm = new Button(100,200,100,50,"Ja","jaKm");
+      Button neeKm = new Button(230,200,100,50,"Nee","neeKm");
+      
     } else {
       error("StartKm has invalid value: "+startKm);
     }
@@ -80,7 +80,7 @@ void draw() {
     
   } else if (curState == State.ERROR){
     setHeaderText("Error report");
-    text(errorReport[0][0],100,100);
+    text(errorReport[0][0]+" "+errorReport[0][1],100,100);
     // button maken to return
   }
   
@@ -93,11 +93,9 @@ void mouseReleased(){
     }
   }
 
-  for (Map.Entry button : buttonHashmap.entrySet()) {
-    println(button.getKey().toString());
-    //printArray(button.getKey());
-    if(button.getValue() == curState){
-      //button.getKey().checkMousepress();
+  for (ButtonPair bp : buttonPairs) {
+    if(bp.state == curState){
+      bp.button.checkMousepress();
     }
   }
 
@@ -108,13 +106,20 @@ void addClickListener(LogButton logButton){
 }
 
 void addClickListener(Button button){
-  if(buttonHashmap.isEmpty()){
-    buttonHashmap.put(button,curState);
+  // Deze wordt constant aangeroepen in draw loop
+  // dus checken of de button al bestaat voordat het erin wordt gegooid
+  if(buttonPairs.isEmpty()){
+    buttonPairs.add(new ButtonPair(button,curState));
   } else {
-    for (Map.Entry buttonEntry : buttonHashmap.entrySet()) {
-      if(buttonEntry.getKey() != button){
-        buttonHashmap.put(button,curState);
+    boolean found = false;
+    for(int i = 0; i < buttonPairs.size(); i++){
+      if(buttonPairs.get(i).button.action == button.action){ // Button ACTION comparison want button to button werkte niet -- OPLOSSING VINDEN
+        found = true;
+        break;
       }
+    }
+    if(!found){
+      buttonPairs.add(new ButtonPair(button,curState));
     }
   }  
 }
@@ -140,7 +145,7 @@ void setHeaderText(String newHeaderText){
 }
 
 void error(String error){
-  errorReport = new String[][]{
+  errorReport = new String[][]{ //<>//
     {"Error Message: ",error},
     {"State: ", curState.toString()},
     {"Date: ", day()+"-"+month()+"-"+year()}

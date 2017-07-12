@@ -16,6 +16,7 @@ class Button {
     this.tx = this.x+(this.w/2);
     makeRect();
     makeText();
+    addClickListener(this);
   }
   
  void makeRect(){
@@ -34,6 +35,8 @@ class Button {
     if(mouseY > this.y && mouseY < (this.y+this.h) && mouseX > this.x && mouseX < (this.x+this.w)){
       if(this.action == "start"){
         changeState(State.START);
+      } else {
+        error("Button with the name " + this.text + " has no action assigned");
       }
     }
   }
